@@ -1,5 +1,6 @@
-import { Castle, Factory, Leaf, Mountain, Waves } from 'lucide-react';
+import { Castle, Factory, Leaf, Mountain, Sparkles, Waves } from 'lucide-react';
 import type { CityCandidate } from '../data/cities';
+import { getCityRole } from '../utils/cityNarrative';
 import { getCityIllustration } from '../utils/cityIllustrations';
 
 interface CityMapMockProps {
@@ -41,11 +42,15 @@ export default function CityMapMock({ city, compact = false, danger = false }: C
           );
         })}
       </div>
-      <div className="absolute left-4 top-4 rounded border border-cyan-400/20 bg-slate-950/75 px-3 py-2 text-xs text-cyan-100">
-        {illustration.label} / {city.terrain}
+      <div className="absolute left-4 top-4 max-w-[78%] rounded border border-cyan-400/20 bg-slate-950/80 px-3 py-2 text-xs leading-5 text-cyan-100">
+        地图格子：{illustration.label} / {city.terrain}
       </div>
-      <div className="absolute bottom-4 right-4 rounded border border-slate-600 bg-slate-950/75 px-3 py-2 text-xs text-slate-300">
-        选中地块：{city.name}
+      <div className="absolute bottom-4 right-4 max-w-[82%] rounded border border-slate-600 bg-slate-950/80 px-3 py-2 text-xs leading-5 text-slate-300">
+        <div className="flex items-center gap-2 font-bold text-white">
+          <Sparkles className="h-4 w-4 text-amber-300" />
+          选中地块：{city.name}
+        </div>
+        <div className="mt-1 text-slate-400">建成后倾向：{getCityRole(city)}</div>
       </div>
     </div>
   );

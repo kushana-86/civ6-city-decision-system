@@ -1,11 +1,14 @@
 import { BarChart3, CheckCircle2, Filter, Gauge, Search, SlidersHorizontal } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import BeginnerGuidePanel from '../components/BeginnerGuidePanel';
+import Civ6VisualGallery from '../components/Civ6VisualGallery';
 import CityMapMock from '../components/CityMapMock';
 import CityPreviewCard from '../components/CityPreviewCard';
 import type { CityCandidate } from '../data/cities';
 import { cities } from '../data/cities';
 import { getCityIllustration } from '../utils/cityIllustrations';
 import { calculateCityScore } from '../utils/calculateCityScore';
+import { resourceGallery, terrainGallery } from '../utils/civ6VisualAssets';
 
 interface SearchPageProps {
   onOpenCity: (id: string) => void;
@@ -185,6 +188,15 @@ export default function SearchPage({ onOpenCity, onOpenScore }: SearchPageProps)
         </div>
       </header>
 
+      <div className="mb-6">
+        <Civ6VisualGallery
+          title="先看图，再检索"
+          subtitle="如果不知道关键词含义，可以先看这些游戏内图片：地形影响成长和防御，资源影响舒适度、军工与贸易。"
+          assets={[...terrainGallery.slice(0, 8), ...resourceGallery.slice(0, 13)]}
+          compact
+        />
+      </div>
+
       <section className="grid gap-6 lg:grid-cols-[360px_1fr]">
         <aside className="space-y-6">
           <section className="rounded-xl border border-cyan-500/20 bg-slate-900 p-5 shadow-lg">
@@ -211,6 +223,8 @@ export default function SearchPage({ onOpenCity, onOpenScore }: SearchPageProps)
               ))}
             </div>
           </section>
+
+          <BeginnerGuidePanel />
 
           <section className="rounded-xl border border-cyan-500/20 bg-slate-900 p-5 shadow-lg">
             <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-white">

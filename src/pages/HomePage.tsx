@@ -1,5 +1,8 @@
-import { BarChart3, BookOpen, GitCompare, Map, Search, Target } from 'lucide-react';
+import { BarChart3, BookOpen, GitCompare, Map, MessageSquare, Network, Route, Search, Target } from 'lucide-react';
+import BeginnerGuidePanel from '../components/BeginnerGuidePanel';
+import Civ6VisualGallery from '../components/Civ6VisualGallery';
 import { cities } from '../data/cities';
+import { districtGallery, districtSceneGallery, resourceGallery, terrainGallery } from '../utils/civ6VisualAssets';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -8,6 +11,9 @@ interface HomePageProps {
 const modules = [
   { icon: Search, title: '信息检索工作台', text: '从关键词、筛选条件和排序方式出发，生成可解释的开城检索结果。', page: 'search' },
   { icon: Target, title: '评分分析入口', text: '先进入检索结果，再点击具体建城点查看评分仪表盘。', page: 'search' },
+  { icon: Route, title: '策略推荐工具箱', text: '按科技、文化、工业、军事、贸易或稳健开局生成开城路线建议。', page: 'strategy' },
+  { icon: Network, title: '知识图谱', text: '把城市、地形、资源、区域和风险组织成可交互的关系网络。', page: 'graph' },
+  { icon: MessageSquare, title: '图谱问答', text: '输入自然语言问题，本地基于图谱路径给出答案和证据。', page: 'qa' },
   { icon: GitCompare, title: '位置对比', text: '自动对比优质建城点与不推荐建城点，突出决策差异。', page: 'compare' },
   { icon: BookOpen, title: '指标说明', text: '说明信息采集、信息组织、信息检索、信息评价与开城决策的关系。', page: 'indicators' },
 ];
@@ -24,6 +30,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
             将候选开城地点转化为可查询、可筛选、可排序、可解释的数据对象，形成“检索 → 结果 → 分析 → 决策”的完整流程。
           </p>
+          <div className="mt-6 rounded-xl border border-amber-300/25 bg-amber-300/10 p-4 text-sm leading-6 text-amber-50">
+            这不是单纯查资料，而是在模拟玩家的真实问题：开拓者站在地图上，应该把新城市建在哪里，为什么这里比那里更值得选？
+          </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <button
               type="button"
@@ -70,7 +79,33 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      <section className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-6">
+        <BeginnerGuidePanel />
+      </div>
+
+      <section className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <Civ6VisualGallery
+          title="文明六地形图鉴"
+          subtitle="这些就是系统里“水源、丘陵、雨林、火山、海岸”等判断依据的视觉来源。"
+          assets={terrainGallery}
+        />
+        <Civ6VisualGallery
+          title="区域和资源速览"
+          subtitle="区域决定城市职能，资源决定宜居、军工、贸易和后期上限。"
+          assets={[...districtGallery.slice(0, 8), ...resourceGallery.slice(0, 10)]}
+          compact
+        />
+      </section>
+
+      <div className="mt-6">
+        <Civ6VisualGallery
+          title="区域实景：建成后城市会长什么样"
+          subtitle="给不了解游戏的人一个直观参照：不同开城位置，最终会服务于不同区域和城市功能。"
+          assets={districtSceneGallery}
+        />
+      </div>
+
+      <section className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {modules.map((module) => {
           const Icon = module.icon;
           return (

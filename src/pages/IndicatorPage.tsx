@@ -1,4 +1,6 @@
-import { ArrowLeft, Database, FileSearch, Layers3, Scale } from 'lucide-react';
+import { ArrowLeft, Database, FileSearch, Image, Layers3, Scale } from 'lucide-react';
+import Civ6VisualGallery from '../components/Civ6VisualGallery';
+import { districtGallery, resourceGallery, terrainGallery } from '../utils/civ6VisualAssets';
 
 interface IndicatorPageProps {
   onBack: () => void;
@@ -61,6 +63,21 @@ export default function IndicatorPage({ onBack }: IndicatorPageProps) {
             <p className="mt-3 text-sm leading-6 text-slate-300">{text}</p>
           </article>
         ))}
+      </section>
+
+      <section className="mt-8 grid gap-6 lg:grid-cols-2">
+        <Civ6VisualGallery title="地形指标对应图片" assets={terrainGallery.slice(0, 10)} compact />
+        <Civ6VisualGallery title="区域与资源指标对应图片" assets={[...districtGallery.slice(0, 8), ...resourceGallery.slice(0, 12)]} compact />
+      </section>
+
+      <section className="mt-8 rounded-xl border border-cyan-500/20 bg-slate-900 p-6 shadow-lg">
+        <h2 className="flex items-center gap-2 text-xl font-bold text-white">
+          <Image className="h-5 w-5 text-cyan-300" />
+          图片素材来源
+        </h2>
+        <p className="mt-3 text-sm leading-6 text-slate-400">
+          城市卡片与预览区使用 Civilization Wiki 的 Civilization VI 地形图片作为教学展示素材，并已缓存到本地 public/civ6-images 目录。
+        </p>
       </section>
     </main>
   );

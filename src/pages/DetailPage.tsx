@@ -1,6 +1,8 @@
 import { ArrowLeft, Droplets, Gem, Hammer, Home, Leaf, MapPinned, Shield } from 'lucide-react';
 import AnalysisCard from '../components/AnalysisCard';
 import CityMapMock from '../components/CityMapMock';
+import DecisionStoryCard from '../components/DecisionStoryCard';
+import ResourceIconList from '../components/ResourceIconList';
 import StatItem from '../components/StatItem';
 import { cities } from '../data/cities';
 import { calculateCityScore } from '../utils/calculateCityScore';
@@ -61,6 +63,10 @@ export default function DetailPage({ cityId, onBack }: DetailPageProps) {
             奢侈资源：{city.luxuryResources.join('、') || '无'}<br />
             战略资源：{city.strategicResources.join('、') || '无'}
           </div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <ResourceIconList title="奢侈资源图标" resources={city.luxuryResources} />
+            <ResourceIconList title="战略资源图标" resources={city.strategicResources} />
+          </div>
         </section>
 
         <AnalysisCard title="优势分析" items={city.advantages} type="advantage" />
@@ -79,6 +85,10 @@ export default function DetailPage({ cityId, onBack }: DetailPageProps) {
           </div>
         </div>
       </section>
+
+      <div className="mt-6">
+        <DecisionStoryCard city={city} />
+      </div>
     </main>
   );
 }

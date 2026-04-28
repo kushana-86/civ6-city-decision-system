@@ -1,14 +1,17 @@
-import { BarChart3, BookOpen, GitCompare, Home, Search } from 'lucide-react';
+import { BarChart3, BookOpen, GitCompare, Home, MessageSquare, Network, Route, Search } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import ComparePage from './pages/ComparePage';
 import DetailPage from './pages/DetailPage';
 import HomePage from './pages/HomePage';
 import IndicatorPage from './pages/IndicatorPage';
+import KnowledgeGraphPage from './pages/KnowledgeGraphPage';
+import KnowledgeQaPage from './pages/KnowledgeQaPage';
 import ScorePage from './pages/ScorePage';
 import SearchPage from './pages/SearchPage';
+import StrategyPage from './pages/StrategyPage';
 
-type Page = 'home' | 'search' | 'detail' | 'score' | 'compare' | 'indicators';
+type Page = 'home' | 'search' | 'detail' | 'score' | 'compare' | 'indicators' | 'strategy' | 'graph' | 'qa';
 
 export default function App() {
   const [page, setPage] = useState<Page>('home');
@@ -41,6 +44,9 @@ export default function App() {
           <div className="flex items-center gap-2">
             <NavButton active={page === 'home'} onClick={() => setPage('home')} icon={<Home className="h-4 w-4" />} label="首页" />
             <NavButton active={page === 'search' || page === 'detail' || page === 'score'} onClick={() => setPage('search')} icon={<Search className="h-4 w-4" />} label="检索" />
+            <NavButton active={page === 'strategy'} onClick={() => setPage('strategy')} icon={<Route className="h-4 w-4" />} label="策略" />
+            <NavButton active={page === 'graph'} onClick={() => setPage('graph')} icon={<Network className="h-4 w-4" />} label="图谱" />
+            <NavButton active={page === 'qa'} onClick={() => setPage('qa')} icon={<MessageSquare className="h-4 w-4" />} label="问答" />
             <NavButton active={page === 'compare'} onClick={() => setPage('compare')} icon={<GitCompare className="h-4 w-4" />} label="对比" />
             <NavButton active={page === 'indicators'} onClick={() => setPage('indicators')} icon={<BookOpen className="h-4 w-4" />} label="指标" />
           </div>
@@ -51,6 +57,9 @@ export default function App() {
       {page === 'search' && <SearchPage onOpenCity={openCity} onOpenScore={openScore} />}
       {page === 'detail' && <DetailPage cityId={activeCityId} onBack={() => setPage('search')} />}
       {page === 'score' && <ScorePage cityId={activeCityId} />}
+      {page === 'strategy' && <StrategyPage />}
+      {page === 'graph' && <KnowledgeGraphPage />}
+      {page === 'qa' && <KnowledgeQaPage />}
       {page === 'compare' && <ComparePage />}
       {page === 'indicators' && <IndicatorPage onBack={() => setPage('home')} />}
     </div>
